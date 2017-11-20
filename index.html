@@ -39,6 +39,8 @@
 </div>
 
 <script>
+
+    /* Variables */
     var randomNumber = Math.floor(Math.random() * 100) + 1;
 
     var guesses = document.querySelector('.guesses');
@@ -52,6 +54,36 @@
     var guessCount = 1;
 
     var resetButton;
+
+    /* Events */
+    guessSubmit.addEventListener('click', checkGuess);
+
+    /* functions */
+    function checkGuess() {
+        var userGuess = Number(guessField.value);
+        if (guessCount === 1) {
+            guesses.textContent = 'Previous guesses: '
+        }
+        guesses.textContent += userGuess + ' ';
+        if (userGuess === randomNumber) {
+            lastResult.textContent = '맞춤';
+            lowOrHi.textContent = '';
+        } else if (guessCount === 10) {
+            lastResult.textContent = 'GAME OVER';
+        } else {
+            lastResult.textContent = '틀림';
+            if (userGuess < randomNumber) {
+                lowOrHi.textContent = '작음';
+            } else {
+                lowOrHi.textContent = '큼';
+            }
+            guessCount++;
+            guessField.value = '';
+            guessField.focus();
+
+        }
+    }
+
 </script>
 </body>
 </html>
